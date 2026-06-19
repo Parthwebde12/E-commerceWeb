@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header', { title: 'Shop — Scatch' }) %>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="shop-page">
+    <div class="shop-heading">
+      <h1>The rack</h1>
+      <p class="muted"><%= products.length %> piece<%= products.length === 1 ? '' : 's' %> in stock</p>
+    </div>
+
+    <% if (products.length === 0) { %>
+      <p class="empty-state">Nothing on the rack yet. Check back soon.</p>
+    <% } else { %>
+      <div class="product-grid">
+        <% products.forEach(function(product) { %>
+          <div class="product-card" style="background-color: <%= product.bgcolor %>; color: <%= product.textcolor %>;">
+            <div class="product-image" style="background-color: <%= product.panelcolor %>;">
+              <% if (product.image) { %>
+                <img src="<%= product.image %>" alt="<%= product.name %>">
+              <% } %>
+            </div>
+            <div class="product-info">
+              <h3><%= product.name %></h3>
+              <p class="price-tag">
+                <% if (product.discount > 0) { %>
+                  <span class="price-strike">₹<%= product.price %></span>
+                  ₹<%= product.price - product.discount %>
+                <% } else { %>
+                  ₹<%= product.price %>
+                <% } %>
+              </p>
+            </div>
+            <% if (user) { %>
+              <div class="product-actions">
+                <a href="/cart/add/<%= product._id %>" class="btn btn-small">Add to cart</a>
+                <a href="/wishlist/toggle/<%= product._id %>" class="btn btn-small btn-ghost">
+                  <%= (user.wishlist && user.wishlist.includes(product._id.toString())) ? '♥ Saved' : '♡ Save' %>
+                </a>
+              </div>
+            <% } else { %>
+              <a href="/users/login" class="btn btn-small">Log in to buy</a>
+            <% } %>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header', { title: 'Your orders — Scatch' }) %>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="orders-page">
+    <h1>Order history</h1>
+
+    <% if (orders.length === 0) { %>
+      <p class="empty-state">No orders yet. <a href="/shop">Start shopping</a>.</p>
+    <% } else { %>
+      <% orders.forEach(function(order, i) { %>
+        <div class="order-card">
+          <div class="order-head">
+            <span>Order #<%= orders.length - i %></span>
+            <span class="muted"><%= new Date(order.placedAt).toLocaleDateString() %></span>
+          </div>
+          <ul class="order-items">
+            <% order.items.forEach(function(item) { %>
+              <li><%= item.name %> × <%= item.quantity %></li>
+            <% }); %>
+          </ul>
+          <div class="order-total mono">Total: ₹<%= order.total %></div>
+        </div>
+      <% }); %>
+    <% } %>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header', { title: 'Your cart — Scatch' }) %>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="cart-page">
+    <h1>Your cart</h1>
+
+    <% if (items.length === 0) { %>
+      <p class="empty-state">Your cart is empty. <a href="/shop">Go find something</a>.</p>
+    <% } else { %>
+      <div class="cart-list">
+        <% items.forEach(function(item) { %>
+          <div class="cart-row">
+            <div class="cart-swatch" style="background-color: <%= item.product.bgcolor %>;"></div>
+            <div class="cart-row-info">
+              <h3><%= item.product.name %></h3>
+              <p class="muted">Qty <%= item.quantity %> · ₹<%= item.product.price - item.product.discount %> each</p>
+            </div>
+            <span class="mono">₹<%= item.lineTotal %></span>
+            <a href="/cart/remove/<%= item.product._id %>" class="cart-remove">Remove</a>
+          </div>
+        <% }); %>
+      </div>
+
+      <div class="cart-summary">
+        <span>Total</span>
+        <span class="mono cart-total">₹<%= total %></span>
+      </div>
+
+      <form action="/cart/checkout" method="POST">
+        <button type="submit" class="btn btn-primary btn-full">Checkout</button>
+      </form>
+    <% } %>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

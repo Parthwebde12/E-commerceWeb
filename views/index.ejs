@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header', { title: 'Scatch — every piece its own swatch' }) %>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Spring drop / 001</p>
+        <h1>Every piece,<br>its own swatch.</h1>
+        <p class="hero-sub">Scatch is a small closet of colour-true basics — each one tagged, dyed, and catalogued like a fabric swatch book.</p>
+        <a href="/shop" class="btn btn-primary">Browse the rack</a>
+      </div>
+      <div class="hero-swatches" aria-hidden="true">
+        <div class="swatch-card sc-1"><span class="swatch-label">01 / OAT</span></div>
+        <div class="swatch-card sc-2"><span class="swatch-label">02 / CLAY</span></div>
+        <div class="swatch-card sc-3"><span class="swatch-label">03 / MOSS</span></div>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

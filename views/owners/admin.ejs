@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/header', { title: 'Admin — Scatch' }) %>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="/" class="logo">Scatch<span class="logo-dot">.</span></a>
+      <nav class="nav-links">
+        <span class="muted">Seller dashboard</span>
+        <a href="/owners/logout">Log out</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-page">
+    <section class="admin-form-section">
+      <h1>Add a product</h1>
+      <% if (error) { %><p class="form-error"><%= error %></p><% } %>
+
+      <form action="/owners/createproducts" method="POST" enctype="multipart/form-data" class="admin-form">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required>
+
+        <label for="price">Price (₹)</label>
+        <input type="number" name="price" id="price" required min="0">
+
+        <label for="discount">Discount (₹)</label>
+        <input type="number" name="discount" id="discount" min="0" value="0">
+
+        <div class="color-row">
+          <div>
+            <label for="bgcolor">Card colour</label>
+            <input type="color" name="bgcolor" id="bgcolor" value="#F2F1EC">
+          </div>
+          <div>
+            <label for="panelcolor">Panel colour</label>
+            <input type="color" name="panelcolor" id="panelcolor" value="#D9D6CC">
+          </div>
+          <div>
+            <label for="textcolor">Text colour</label>
+            <input type="color" name="textcolor" id="textcolor" value="#14150F">
+          </div>
+        </div>
+
+        <label for="image">Product image</label>
+        <input type="file" name="image" id="image" accept="image/*">
+
+        <button type="submit" class="btn btn-primary btn-full">Add to rack</button>
+      </form>
+    </section>
+
+    <section class="admin-list-section">
+      <h2>Current products (<%= products.length %>)</h2>
+      <div class="admin-product-list">
+        <% products.forEach(function(product) { %>
+          <div class="admin-product-row" style="background-color: <%= product.bgcolor %>; color: <%= product.textcolor %>;">
+            <span><%= product.name %></span>
+            <span class="mono">₹<%= product.price - product.discount %></span>
+          </div>
+        <% }); %>
+      </div>
+    </section>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

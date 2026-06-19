@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/header', { title: 'Seller login — Scatch' }) %>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="auth-page">
+    <form action="/owners/login" method="POST" class="auth-form">
+      <h1>Seller login</h1>
+      <p class="muted" style="margin-top:-0.5rem;">Manage the rack from the admin dashboard.</p>
+      <% if (error) { %><p class="form-error"><%= error %></p><% } %>
+
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required>
+
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required>
+
+      <button type="submit" class="btn btn-primary btn-full">Log in</button>
+    </form>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

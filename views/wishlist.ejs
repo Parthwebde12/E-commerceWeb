@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header', { title: 'Wishlist — Scatch' }) %>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="shop-page">
+    <div class="shop-heading">
+      <h1>Saved for later</h1>
+    </div>
+
+    <% if (products.length === 0) { %>
+      <p class="empty-state">Nothing saved yet. <a href="/shop">Browse the rack</a>.</p>
+    <% } else { %>
+      <div class="product-grid">
+        <% products.forEach(function(product) { %>
+          <div class="product-card" style="background-color: <%= product.bgcolor %>; color: <%= product.textcolor %>;">
+            <div class="product-image" style="background-color: <%= product.panelcolor %>;">
+              <% if (product.image) { %><img src="<%= product.image %>" alt="<%= product.name %>"><% } %>
+            </div>
+            <div class="product-info">
+              <h3><%= product.name %></h3>
+              <p class="price-tag">₹<%= product.price - product.discount %></p>
+            </div>
+            <div class="product-actions">
+              <a href="/cart/add/<%= product._id %>" class="btn btn-small">Add to cart</a>
+              <a href="/wishlist/toggle/<%= product._id %>" class="btn btn-small btn-ghost">Remove</a>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>
