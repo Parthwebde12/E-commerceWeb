@@ -1,0 +1,17 @@
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/" class="logo">Scatch<span class="logo-dot">.</span></a>
+    <nav class="nav-links">
+      <a href="/shop">Shop</a>
+      <% if (user) { %>
+        <a href="/wishlist">Wishlist</a>
+        <a href="/cart">Cart<% if (user.cart && user.cart.length) { %> (<%= user.cart.length %>)<% } %></a>
+        <a href="/orders">Orders</a>
+        <a href="/users/logout">Log out</a>
+      <% } else { %>
+        <a href="/users/login">Log in</a>
+        <a href="/users/register" class="nav-cta">Sign up</a>
+      <% } %>
+    </nav>
+  </div>
+</header>
