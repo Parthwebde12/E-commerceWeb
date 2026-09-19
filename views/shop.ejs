@@ -10,6 +10,13 @@
       <p class="muted"><%= products.length %> piece<%= products.length === 1 ? '' : 's' %> in stock</p>
     </div>
 
+    <form action="/shop/search" method="GET" class="search-form">
+      <input type="text" name="query" placeholder="Search products..." value="<%= typeof query !== 'undefined' ? query : '' %>" />
+      <input type="number" name="minPrice" placeholder="Min Price" value="<%= typeof minPrice !== 'undefined' ? minPrice : '' %>" />
+      <input type="number" name="maxPrice" placeholder="Max Price" value="<%= typeof maxPrice !== 'undefined' ? maxPrice : '' %>" />
+      <button type="submit" class="btn btn-small">Search</button>
+    </form>
+
     <% if (products.length === 0) { %>
       <p class="empty-state">Nothing on the rack yet. Check back soon.</p>
     <% } else { %>
