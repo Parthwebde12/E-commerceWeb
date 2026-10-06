@@ -18,7 +18,11 @@ module.exports.loginOwner = async function (req, res) {
     }
 
     const token = generateToken({ email: owner.email, id: owner._id });
-    res.cookie("owner_token", token, { httpOnly: true });
+    res.cookie("owner_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
 
     res.redirect("/owners/admin");
   } catch (err) {

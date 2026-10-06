@@ -23,7 +23,11 @@ module.exports.registerUser = async function (req, res) {
     });
 
     const token = generateToken({ email: user.email, id: user._id });
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
 
     res.redirect("/shop");
   } catch (err) {
@@ -49,7 +53,11 @@ module.exports.loginUser = async function (req, res) {
     }
 
     const token = generateToken({ email: user.email, id: user._id });
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
 
     res.redirect("/shop");
   } catch (err) {

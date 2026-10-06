@@ -1,13 +1,18 @@
 const mongoose = require('mongoose');
 
-mongoose
-  .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/scatch")
-  .then(function () {
-    console.log("connected to MongoDB");
-  })
-  .catch(function (err) {
-    console.log(err);
-  });
+async function connectDatabase() {
+  const mongoUri =
+    process.env.MONGO_URI ||
+    (process.env.NODE_ENV === "production"
+      ? null
+      : "mongodb://127.0.0.1:27017/scatch");
 
+  if (!mongoUri) {
+    throw new Error("MONGO_URI must be configured in production.");
+  }
 
- module.exports = mongoose.connection; 
+  await mongoose.connect(mongoUri);
+  console.log("Connected to MongoDB");
+}
+
+module.exports = { connectDatabase, connection: mongoose.connection };

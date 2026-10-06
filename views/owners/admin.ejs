@@ -15,6 +15,7 @@
   <main class="admin-page">
     <section class="admin-form-section">
       <h1>Add a product</h1>
+      <p class="page-intro">Give your piece a name, set its price, and choose the colours that bring it to life on the rack.</p>
       <% if (error) { %><p class="form-error"><%= error %></p><% } %>
 
       <form action="/owners/createproducts" method="POST" enctype="multipart/form-data" class="admin-form">
@@ -51,6 +52,9 @@
 
     <section class="admin-list-section">
       <h2>Current products (<%= products.length %>)</h2>
+      <% if (products.length === 0) { %>
+        <p class="empty-state">Your rack is clear. Add a product to make it visible in the shop.</p>
+      <% } else { %>
       <div class="admin-product-list">
         <% products.forEach(function(product) { %>
           <div class="admin-product-row" style="background-color: <%= product.bgcolor %>; color: <%= product.textcolor %>;">
@@ -59,6 +63,7 @@
           </div>
         <% }); %>
       </div>
+      <% } %>
     </section>
   </main>
 

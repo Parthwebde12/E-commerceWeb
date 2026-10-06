@@ -6,9 +6,14 @@
 
   <main class="orders-page">
     <h1>Order history</h1>
+    <p class="page-intro">A record of the pieces you've checked out with, all in one place.</p>
 
     <% if (orders.length === 0) { %>
-      <p class="empty-state">No orders yet. <a href="/shop">Start shopping</a>.</p>
+      <div class="empty-state">
+        <h2>No orders just yet</h2>
+        <p>Once you check out, your order details will show up here.</p>
+        <a href="/shop" class="btn btn-primary btn-small">Start exploring</a>
+      </div>
     <% } else { %>
       <% orders.forEach(function(order, i) { %>
         <div class="order-card">

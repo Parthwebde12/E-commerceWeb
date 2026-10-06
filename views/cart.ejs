@@ -6,9 +6,14 @@
 
   <main class="cart-page">
     <h1>Your cart</h1>
+    <p class="page-intro">Your picks, all in one place. You can remove a piece or adjust quantities by adding it again from the shop.</p>
 
     <% if (items.length === 0) { %>
-      <p class="empty-state">Your cart is empty. <a href="/shop">Go find something</a>.</p>
+      <div class="empty-state">
+        <h2>Your cart is waiting</h2>
+        <p>Explore the rack and add a piece when something catches your eye.</p>
+        <a href="/shop" class="btn btn-primary btn-small">Browse the rack</a>
+      </div>
     <% } else { %>
       <div class="cart-list">
         <% items.forEach(function(item) { %>
@@ -32,6 +37,7 @@
       <form action="/cart/checkout" method="POST">
         <button type="submit" class="btn btn-primary btn-full">Checkout</button>
       </form>
+      <p class="checkout-note">This demo checkout records your order in your account. No payment will be taken.</p>
     <% } %>
   </main>
 

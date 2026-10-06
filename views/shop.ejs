@@ -6,8 +6,12 @@
 
   <main class="shop-page">
     <div class="shop-heading">
-      <h1>The rack</h1>
-      <p class="muted"><%= products.length %> piece<%= products.length === 1 ? '' : 's' %> in stock</p>
+      <div>
+        <p class="eyebrow">Find your next favourite</p>
+        <h1>The rack</h1>
+        <p class="muted">A considered edit of everyday pieces. Search by name or narrow it down by price.</p>
+      </div>
+      <p class="muted"><%= products.length %> piece<%= products.length === 1 ? '' : 's' %> to explore</p>
     </div>
 
     <form action="/shop/search" method="GET" class="search-form">
@@ -18,7 +22,11 @@
     </form>
 
     <% if (products.length === 0) { %>
-      <p class="empty-state">Nothing on the rack yet. Check back soon.</p>
+      <div class="empty-state">
+        <h2>No pieces found</h2>
+        <p>Try another search or clear the price filters to explore the full rack.</p>
+        <a href="/shop" class="btn btn-small btn-ghost">View all pieces</a>
+      </div>
     <% } else { %>
       <div class="product-grid">
         <% products.forEach(function(product) { %>
@@ -26,6 +34,11 @@
             <div class="product-image" style="background-color: <%= product.panelcolor %>;">
               <% if (product.image) { %>
                 <img src="<%= product.image %>" alt="<%= product.name %>">
+              <% } else { %>
+                <div class="product-placeholder" aria-label="No product image available">
+                  <span>SCATCH</span>
+                  <span>COLOUR STUDY</span>
+                </div>
               <% } %>
             </div>
             <div class="product-info">
@@ -38,6 +51,7 @@
                   ₹<%= product.price %>
                 <% } %>
               </p>
+              <p class="product-caption">A colour-led piece for your everyday rotation.</p>
             </div>
             <% if (user) { %>
               <div class="product-actions">
