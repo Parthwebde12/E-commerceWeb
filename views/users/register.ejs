@@ -5,26 +5,33 @@
   <%- include('../partials/navbar') %>
 
   <main class="auth-page">
-    <form action="/users/register" method="POST" class="auth-form">
-      <h1>Create an account</h1>
-      <p class="page-intro">Join Scatch to save favourites, build your cart, and keep track of your orders.</p>
-      <% if (error) { %><p class="form-error"><%= error %></p><% } %>
+    <div class="auth-shell">
+      <aside class="auth-visual">
+        <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1000&q=85" alt="Young man wearing a casual modern outfit" />
+        <p class="auth-photo-caption">Everyday style, made simple.</p>
+      </aside>
 
-      <label for="fullname">Full name</label>
-      <input type="text" name="fullname" id="fullname" required>
+      <form action="/users/register" method="POST" class="auth-form auth-card">
+        <h1>Create an account</h1>
+        <p class="page-intro">Join Scatch to save favourites, build your cart, and keep track of your orders.</p>
+        <% if (error) { %><p class="form-error"><%= error %></p><% } %>
 
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" required>
+        <label for="fullname">Full name</label>
+        <input type="text" name="fullname" id="fullname" required>
 
-      <label for="contact">Phone</label>
-      <input type="number" name="contact" id="contact">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required>
 
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" required minlength="6">
+        <label for="contact">Phone</label>
+        <input type="number" name="contact" id="contact">
 
-      <button type="submit" class="btn btn-primary btn-full">Create account</button>
-      <p class="auth-switch">Already have an account? <a href="/users/login">Log in</a></p>
-    </form>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required minlength="6">
+
+        <button type="submit" class="btn btn-primary btn-full">Create account</button>
+        <p class="auth-switch">Already have an account? <a href="/users/login">Log in</a></p>
+      </form>
+    </div>
   </main>
 
   <%- include('../partials/footer') %>

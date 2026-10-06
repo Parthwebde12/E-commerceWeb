@@ -18,7 +18,11 @@
       <div class="cart-list">
         <% items.forEach(function(item) { %>
           <div class="cart-row">
-            <div class="cart-swatch" style="background-color: <%= item.product.bgcolor %>;"></div>
+            <% if (item.product.image) { %>
+              <img class="cart-thumb" src="<%= item.product.image %>" alt="<%= item.product.name %>" loading="lazy" decoding="async">
+            <% } else { %>
+              <div class="cart-thumb cart-thumb-placeholder" style="background-color: <%= item.product.panelcolor || item.product.bgcolor || '#E7E2D2' %>;" role="img" aria-label="No image available for <%= item.product.name %>"></div>
+            <% } %>
             <div class="cart-row-info">
               <h3><%= item.product.name %></h3>
               <p class="muted">Qty <%= item.quantity %> · ₹<%= item.product.price - item.product.discount %> each</p>

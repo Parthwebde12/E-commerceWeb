@@ -23,7 +23,14 @@
           </div>
           <ul class="order-items">
             <% order.items.forEach(function(item) { %>
-              <li><%= item.name %> × <%= item.quantity %></li>
+              <li class="order-item">
+                <% if (item.image) { %>
+                  <img class="order-thumb" src="<%= item.image %>" alt="<%= item.name %>" loading="lazy" decoding="async">
+                <% } else { %>
+                  <div class="order-thumb order-thumb-placeholder" role="img" aria-label="No image available for <%= item.name %>"></div>
+                <% } %>
+                <span><%= item.name %> × <%= item.quantity %></span>
+              </li>
             <% }); %>
           </ul>
           <div class="order-total mono">Total: ₹<%= order.total %></div>

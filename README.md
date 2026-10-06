@@ -1,24 +1,48 @@
 # Scatch
 
+Scatch is a lightweight fashion storefront built with Node.js, Express, EJS, and
+MongoDB. Customers can browse products with photos, save favourites, manage a
+cart, and view their order history.
+
+## Screenshots
+
+![Scatch storefront](screenshots/storefront.png)
+![Scatch cart](screenshots/scree1.png)
+![Scatch order history](screenshots/scree2.png)
+
+## Features
+
+- Browse the product collection and search by name or price.
+- Create an account, log in, and log out.
+- Save products to a wishlist.
+- Add products to a cart, view product photos, and remove items.
+- Complete the demo checkout and view past orders with product photos.
+- Use the seller dashboard to add products, prices, discounts, colours, and
+  optional image uploads.
+- Check app and database readiness at `/health`.
+
+## Requirements
+
+- Node.js 22 or later.
+- MongoDB, either local or hosted.
+
 ## Run locally
 
 1. Copy `.env.example` to `.env.local`.
-2. Set `MONGO_URI` to a reachable MongoDB database and replace `JWT_KEY` with a
-   random secret of at least 32 characters.
-3. Run `npm ci`, then `npm start` (or `npm run dev` while developing).
+2. Set `MONGO_URI` to a reachable MongoDB connection string.
+3. Replace `JWT_KEY` with a unique, random secret of at least 32 characters.
+4. Install dependencies and start the app:
 
-The app uses a local MongoDB database at `mongodb://127.0.0.1:27017/scatch` if
-`MONGO_URI` is omitted outside production.
+   ```sh
+   npm ci
+   npm start
+   ```
 
-## Deploy to Render
+For development with automatic restarts, run `npm run dev`. The app loads
+`.env.local` first and then `.env`. If `MONGO_URI` is not set outside production,
+it uses `mongodb://127.0.0.1:27017/scatch`.
 
-Create a Render Blueprint from this repository using `render.yaml`. Configure
-the prompted `MONGO_URI` with your MongoDB connection string and `JWT_KEY` with
-a unique random secret of at least 32 characters. The service uses Node.js 22,
-installs from the lockfile, waits for MongoDB before listening, and exposes
-`/health` as its readiness check.
+The app listens on port `3000` by default. Set `PORT` in the environment to use
+a different valid port. The demo checkout records orders but does not take
+payment.
 
-Product images are currently written to the app's local filesystem. Render's
-default filesystem is ephemeral, so uploaded images can disappear after a
-restart or deploy. Use a persistent disk or external object storage before
-relying on product uploads in production.

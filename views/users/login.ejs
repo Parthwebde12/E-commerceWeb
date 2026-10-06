@@ -5,20 +5,27 @@
   <%- include('../partials/navbar') %>
 
   <main class="auth-page">
-    <form action="/users/login" method="POST" class="auth-form">
-      <h1>Welcome back</h1>
-      <p class="page-intro">Sign in to pick up where you left off and find your saved pieces.</p>
-      <% if (error) { %><p class="form-error"><%= error %></p><% } %>
+    <div class="auth-shell">
+      <aside class="auth-visual">
+        <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1000&q=85" alt="Young man wearing a casual modern outfit" />
+        <p class="auth-photo-caption">Everyday style, made simple.</p>
+      </aside>
 
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" required>
+      <form action="/users/login" method="POST" class="auth-form auth-card">
+        <h1>Welcome back</h1>
+        <p class="page-intro">Sign in to pick up where you left off and find your saved pieces.</p>
+        <% if (error) { %><p class="form-error"><%= error %></p><% } %>
 
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" required>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required>
 
-      <button type="submit" class="btn btn-primary btn-full">Log in</button>
-      <p class="auth-switch">New here? <a href="/users/register">Create an account</a></p>
-    </form>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+
+        <button type="submit" class="btn btn-primary btn-full">Log in</button>
+        <p class="auth-switch">New here? <a href="/users/register">Create an account</a></p>
+      </form>
+    </div>
   </main>
 
   <%- include('../partials/footer') %>

@@ -1,4 +1,5 @@
 const productModel = require("../models/product-model");
+const mongoose = require("mongoose");
 
 module.exports.addToCart = async function (req, res) {
   const user = req.user;
@@ -59,6 +60,7 @@ module.exports.checkout = async function (req, res) {
   const items = products.map((product) => ({
     product: product._id,
     name: product.name,
+    image: product.image || "",
     price: product.price,
     discount: product.discount,
     quantity: counts[product._id.toString()],
@@ -80,7 +82,32 @@ module.exports.checkout = async function (req, res) {
   res.redirect("/orders");
 };
 
-module.exports.getOrders = function (req, res) {
-  const orders = [...req.user.orders].reverse();
+module.exports.getOrders = async function (req, res) {
+  const orders = [...req.user.orders].reverse().map((order) => {
+    const orderData =
+      typeof order.toObject === "function" ? order.toObject() : order;
+    return {
+      ...orderData,
+      items: (order.items || []).map((item) => ({ ...item })),
+    };
+  });
+  const productIds = orders
+    .flatMap((order) => order.items)
+    .filter((item) => !item.image && item.product)
+    .map((item) => item.product)
+    .filter((id) => mongoose.isValidObjectId(id));
+  const products = productIds.length
+    ? await productModel.find({ _id: { $in: productIds } }).select("_id image")
+    : [];
+  const productImages = new Map(
+    products.map((product) => [product._id.toString(), product.image || ""])
+  );
+
+  orders.forEach((order) => {
+    order.items.forEach((item) => {
+      item.image = item.image || productImages.get(String(item.product)) || "";
+    });
+  });
+
   res.render("orders", { orders });
 };

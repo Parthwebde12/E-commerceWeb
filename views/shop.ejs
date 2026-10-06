@@ -33,7 +33,7 @@
           <div class="product-card" style="background-color: <%= product.bgcolor %>; color: <%= product.textcolor %>;">
             <div class="product-image" style="background-color: <%= product.panelcolor %>;">
               <% if (product.image) { %>
-                <img src="<%= product.image %>" alt="<%= product.name %>">
+                <img src="<%= product.image %>" alt="<%= product.name %>" loading="lazy" decoding="async">
               <% } else { %>
                 <div class="product-placeholder" aria-label="No product image available">
                   <span>SCATCH</span>
